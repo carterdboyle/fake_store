@@ -1,0 +1,39 @@
+<header class="mx-5 my-2 border-b-1 ">
+  <nav class="flex items-center justify-between">
+    <ul class="left-half flex grow items-center justify-start gap-10">
+        <li class="left-logo font-bold text-lg tracking-wide">
+          FAKE STORE
+        </li>
+        <li>
+          <%= link_to "List of products", products_path, class: "page-title uppercase tracking-widest text-gray-600 hover:text-gray-800"%>
+        </li>
+    </ul>
+    <div class="right-half w-200 flex items-center justify-end mb-2 me-10 gap-10">
+      <div class="search-stuff flex items-center gap-2 pe-10 border-r-1">
+        <input type="text" placeholder="Search products..." class="border rounded-full px-3 pb-1"/>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+        </button>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+          </svg>
+        </button>
+      </div>
+      <ul class="user-actions flex items-center gap-5">
+        <li>
+          <button class="border border-gray-200 rounded-full py-2 px-5 hover:bg-gray-200 hover:cursor-pointer tracking-wide">
+            SIGN UP
+          </button>
+        </li>
+        <li>
+          <button class="tracking-wide text-current/60 hover:text-current/100 hover:cursor-pointer">
+            LOG OUT
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,38 @@
+<div class="content grid grid-cols-4 gap-4">
+  <% if @products.empty? %>
+    <p>Please add products to the database!</p>
+  <% else %>
+    <% @products.each do |product| %>
+      <%# This is where the card partial would go %>
+      <div class="border rounded p-5 flex flex-col gap-5 shadow-lg">
+        <div class="uppercase tracking-widest text-center"><%= product.title %></div>
+        <div class="top-box flex justify-center h-[200px] w-auto border-b pb-5">
+          <% if product.image_url %>
+            <%= image_tag product.image_url %>
+          <% else %>
+            <p> No image to display. </p>
+          <% end %>
+        </div>
+        <div class="flex flex-col grow justify-between">
+          <div class="mb-5 font-light text-sm"><%= product.description %></div>
+          <div class="flex justify-center items-center gap-5 mb-5">
+            <div>
+              <span class=<%= product.amount ? "text-green-600" : "text-red-600" %>><%= product.amount ? "#{product.amount}" : "OUT OF STOCK" %></span>
+              <%= product.amount && " in stock" %>
+            </div>
+            <div class="text-lg font-bold">$<%= number_with_precision product.price, precision: 2 %></div>
+          </div>
+          <div class="flex gap-5 justify-center mb-5 items-center">
+            <input type="number" placeholder="0" size="2" min="0" max="99" />
+            <button class="bg-yellow-300 transition duration-300 hover:-translate-y-1 hover:scale-110 hover:cursor-pointer hover:bg-yellow-200 px-3 py-1">
+              Add to cart
+            </button>
+            <button class="bg-yellow-300 transition duration-300 hover:-translate-y-1 hover:scale-110 hover:cursor-pointer hover:bg-yellow-200 px-3 py-1">
+              Buy now
+            </button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
