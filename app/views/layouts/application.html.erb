@@ -22,10 +22,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="relative">
     <%= render "layouts/navigation" %>
-    <main class="container mx-auto mt-14 px-5">
+    <main class="container flex mx-auto py-14 px-5">
       <%= yield %>
     </main>
+    <%= render "layouts/footer" %>
   </body>
 </html>
