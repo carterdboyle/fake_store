@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for(:title) || "Fake Store" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,12 +22,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="relative">
+  <body class="min-h-dvh flex flex-col"> 
     <%= render "layouts/navigation" %>
     <%= render "shared/flash" %>
-    <main class="container flex flex-col mx-auto py-14 px-5 h-screen">
+
+    <main class="container flex grow min-h-0 overflow-y-auto mx-auto py-14 px-5">
       <%= yield %>
     </main>
+
     <%= render "layouts/footer" %>
   </body>
 </html>
