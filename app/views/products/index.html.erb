@@ -8,7 +8,7 @@
         <div class="uppercase tracking-widest text-center"><%= product.title %></div>
         <div class="top-box flex justify-center h-[200px] w-auto border-b pb-5">
           <% if product.image_url %>
-            <%= image_tag product.image_url %>
+            <%= image_tag product.image_url, class: "rounded-lg" %>
           <% else %>
             <p> No image to display. </p>
           <% end %>
