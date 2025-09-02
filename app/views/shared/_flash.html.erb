@@ -1,0 +1,58 @@
+<div
+  class="fixed z-50 top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 w-[min(92vw,36rem)] space-y-3"
+  data-turbo-temporary
+>
+  <% flash.each do |type, message| %>
+    <% styles =
+        case type.to_sym
+        when :notice, :info
+          { box: "bg-blue-50 border-blue-200 text-blue-900",  btn: "hover:bg-blue-100 focus:ring-blue-500",  icon: :info }
+        when :success
+          { box: "bg-green-50 border-green-200 text-green-900", btn: "hover:bg-green-100 focus:ring-green-500", icon: :check }
+        when :alert, :warning
+          { box: "bg-yellow-50 border-yellow-200 text-yellow-900", btn: "hover:bg-yellow-100 focus:ring-yellow-500", icon: :warn }
+        else # :error, :danger, etc.
+          { box: "bg-red-50 border-red-200 text-red-900",     btn: "hover:bg-red-100 focus:ring-red-500",     icon: :error }
+        end %>
+
+    <div
+      data-controller="flash"
+      data-flash-dismiss-after-value="5000"
+      class="opacity-0 translate-y-2 transition-all duration-200 pointer-events-auto"
+      role="alert"
+      aria-live="assertive"
+    >
+      <div class="rounded-xl border p-4 shadow-lg <%= styles[:box] %>">
+        <div class="flex items-start gap-3">
+          <div class="shrink-0 mt-0.5">
+            <%# Simple inline icons %>
+            <% if styles[:icon] == :check %>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0Z"/></svg>
+            <% elsif styles[:icon] == :warn %>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10.29 3.86a2 2 0 013.42 0l8.15 14.1A2 2 0 0120.15 21H3.85a2 2 0 01-1.71-3.04l8.15-14.1zM12 9v4m0 4h.01"/></svg>
+            <% elsif styles[:icon] == :error %>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20Z"/></svg>
+            <% else %>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17h.01M11 7h2v7h-2zM12 2a10 10 0 100 20 10 10 0 000-20Z"/></svg>
+            <% end %>
+          </div>
+
+          <div class="flex-1">
+            <p class="font-medium"><%= message %></p>
+          </div>
+
+          <button
+            type="button"
+            data-action="flash#close"
+            class="rounded-md p-1.5 focus:outline-none focus:ring-2 <%= styles[:btn] %>"
+            aria-label="Dismiss notification"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -24,7 +24,8 @@
 
   <body class="relative">
     <%= render "layouts/navigation" %>
-    <main class="container flex mx-auto py-14 px-5">
+    <%= render "shared/flash" %>
+    <main class="container flex flex-col mx-auto py-14 px-5 h-screen">
       <%= yield %>
     </main>
     <%= render "layouts/footer" %>

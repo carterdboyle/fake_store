@@ -1,0 +1,31 @@
+<% if resource.errors.any? %>
+  <div
+    id="error_explanation"
+    data-turbo-cache="false"
+    role="alert"
+    aria-live="assertive"
+    class="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-red-900 shadow-sm
+           dark:border-red-800 dark:bg-red-900/30 dark:text-red-100"
+  >
+    <div class="flex items-start gap-3">
+      <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 9v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20Z"/>
+      </svg>
+
+      <div class="flex-1">
+        <h2 class="mb-1 font-semibold">
+          <%= I18n.t("errors.messages.not_saved",
+                     count: resource.errors.count,
+                     resource: resource.class.model_name.human.downcase) %>
+        </h2>
+
+        <ul class="ml-5 list-disc space-y-0.5">
+          <% resource.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>
+
