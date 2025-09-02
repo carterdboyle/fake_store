@@ -1,0 +1,1 @@
+ActionView::Base.field_error_proc = proc { |html_tag, _| html_tag.html_safe }

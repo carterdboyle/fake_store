@@ -1,43 +1,65 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= auth_card "Edit account" do %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name),
+               html: { method: :put }, data: { turbo: false }) do |f| %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% if resource.respond_to?(:name) %>
+      <div class="mb-4">
+        <%= f.label :name, class: "mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+        <%= f.text_field :name, autocomplete: "name",
+              class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" %>
+      </div>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :email, class: "mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= f.email_field :email, autocomplete: "email",
+            class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p class="mb-4 text-sm text-gray-600 dark:text-gray-300">
+        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+      </p>
+    <% end %>
+
+    <div class="mb-4">
+      <%= f.label :password, class: "mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= f.password_field :password, autocomplete: "new-password",
+            placeholder: "(leave blank if you don't want to change it)",
+            class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :password_confirmation, class: "mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password",
+            class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" %>
+    </div>
+
+    <div class="mb-6">
+      <%= f.label :current_password, class: "mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200" %>
+      <%= f.password_field :current_password, autocomplete: "current-password",
+            placeholder: "(we need your current password to confirm your changes)",
+            class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100" %>
+    </div>
+
+    <div class="flex items-center justify-between gap-3">
+      <%= link_to "Back", :back, class: "rounded border px-4 py-2 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800" %>
+      <%= f.submit "Update",
+            class: "rounded bg-blue-600 px-4 py-2.5 font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+    </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+  <hr class="my-6 border-gray-200 dark:border-gray-800" />
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
+  <div>
+    <h2 class="mb-2 text-lg font-semibold text-red-700 dark:text-red-400">Cancel my account</h2>
+    <p class="mb-4 text-sm text-gray-600 dark:text-gray-300">Unhappy? You can delete your account permanently.</p>
+    <%= button_to "Delete my account", registration_path(resource_name),
+          method: :delete,
+          data: { confirm: "Are you sure?" },
+          class: "rounded bg-red-600 px-4 py-2.5 font-medium text-white hover:bg-red-700" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
