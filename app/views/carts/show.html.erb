@@ -65,8 +65,7 @@
               class: "rounded bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700" %>
       </div>
     <% else %>
-      <p class="text-gray-700">Your cart is empty.</p>
-      <%= link_to "Browse products", products_path, class: "mt-3 inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 self-start" %>
+      <%= render partial: "empty" %>
     <% end %>
 
   <% else %> <%# -------- Guest (session) cart -------- %>
@@ -142,8 +141,7 @@
               class: "rounded bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700" %>
       </div>
     <% else %>
-      <p class="text-gray-700">Your cart is empty.</p>
-      <%= link_to "Browse products", products_path, class: "mt-3 inline-block rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 self-start" %>
+      <%= render partial: "empty" %>
     <% end %>
   <% end %>
 </div>
