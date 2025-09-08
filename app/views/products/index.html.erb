@@ -1,6 +1,6 @@
 <div class="content grid grid-cols-4 gap-4">
   <% if @products.empty? %>
-    <p>Please add products to the database!</p>
+    <span class="col-span-2">No products found. Try another search or add products to database.</span>
   <% else %>
     <% @products.each do |product| %>
       <% in_stock = product.amount.to_i > 0 %>
