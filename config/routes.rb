@@ -18,4 +18,9 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resource :cart, only: [:show]
   resources :cart_items, only: [:create, :update, :destroy]
+
+  resource :checkout, only: :create
+  resources :orders, param: :public_id, only: [ :index, :show ]
+
+  resource :account, only: :show
 end

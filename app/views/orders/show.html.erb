@@ -1,0 +1,32 @@
+<!-- app/views/orders/show.html.erb -->
+<div class="flex grow flex-col">
+  <h1 class="text-xl tracking-widest"><strong>Order #<%= @order.public_id %></strong></h1>
+  <p class="tracking-wide font-light">Placed: <%= @order.placed_at&.strftime("%b %d, %Y %H:%M") %></p>
+
+  <div class="border-b mt-5"></div>
+
+  <table class="table-auto w-full mt-6 font-light">
+    <thead>
+      <tr>
+        <th class="text-left">Product</th>
+        <th class="text-right">Qty</th>
+        <th class="text-right">Unit</th>
+        <th class="text-right">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_items.each do |oi| %>
+        <tr>
+          <td><%= oi.product_name %></td>
+          <td class="text-right"><%= oi.quantity %></td>
+          <td class="text-right">$<%= (oi.unit_price).round(2) %></td>
+          <td class="text-right">$<%= (oi.total).round(2) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="mt-6 border-t pt-5 space-y-1 text-right">
+    <div class="font-semibold">Total: $<%= (@order.total).round(2) %></div>
+  </div>
+</div>

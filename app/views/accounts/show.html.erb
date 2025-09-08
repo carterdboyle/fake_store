@@ -1,0 +1,42 @@
+<!-- app/views/accounts/show.html.erb -->
+<div class="mx-auto max-w-3xl p-6">
+  <h1 class="text-3xl font-light tracking-wider">My Account</h1>
+  <p class="text-sm text-gray-500 mt-2">Signed in as <span class="font-medium"><%= current_user.email %></span></p>
+
+  <div class="grid sm:grid-cols-2 gap-4 mt-8">
+    <!-- Edit email/password (Devise Registrations#edit) -->
+    <%= link_to edit_user_registration_path, class: "block rounded-2xl border p-5 hover:shadow transition hover:bg-gray-50 " do %>
+      <h2 class="text-lg font-semibold">Edit profile</h2>
+      <p class="text-sm text-gray-600 mt-1">Change email or password (requires current password)</p>
+    <% end %>
+
+    <!-- Forgot password flow (sends reset email) -->
+    <%= link_to new_user_password_path, class: "block rounded-2xl border p-5 hover:shadow transition hover:bg-gray-50 " do %>
+      <h2 class="text-lg font-semibold">Forgot password</h2>
+      <p class="text-sm text-gray-600 mt-1">Send a password reset email</p>
+    <% end %>
+
+    <!-- Sign out -->
+    <%= button_to destroy_user_session_path, method: :delete, class: "block text-left rounded-2xl border p-5 hover:shadow hover:cursor-pointer hover:bg-gray-50 transition w-full" do %>
+      <h2 class="text-lg font-semibold">Sign out</h2>
+      <p class="text-sm text-gray-600 mt-1">End your current session</p>
+    <% end %>
+  </div>
+
+  <!-- Danger zone -->
+  <div class="mt-10 rounded-2xl border border-red-300/70 p-5">
+    <h3 class="text-red-700 font-semibold">Danger zone</h3>
+    <p class="text-sm text-gray-600 mt-1">
+      Permanently delete your account and all associated data.
+    </p>
+
+    <div class="mt-4">
+      <%# Devise destroy registration path helper: registration_path(:user) %>
+      <%= button_to "Delete my account",
+            registration_path(:user),
+            method: :delete,
+            form: { data: { turbo_confirm: "Are you sure you want to delete your account? This cannot be undone." } },
+            class: "inline-flex items-center rounded-xl bg-red-600 px-4 py-2 text-white hover:bg-red-700 transition hover:cursor-pointer" %>
+    </div>
+  </div>
+</div>

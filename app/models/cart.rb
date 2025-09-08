@@ -2,6 +2,7 @@ class Cart < ApplicationRecord
   belongs_to :user, optional: true
   has_many :cart_items, dependent: :destroy
   has_many :products, through: :cart_items
+  enum :status, { active: 0, converted: 1 }
 
   def add_product(product_id, qty = 1)
     qty = qty.to_i.clamp(1, 99)

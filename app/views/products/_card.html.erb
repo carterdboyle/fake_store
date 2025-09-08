@@ -1,0 +1,58 @@
+<div class="border rounded p-5 flex flex-col gap-5 shadow-lg">
+  <div class="uppercase tracking-widest text-center"><%= title_trimmer product.title %></div>
+  <div class="top-box flex items-center justify-center h-[200px] w-auto border-b pb-5">
+    <% if product.image_url.present? %>
+      <%= image_tag product.image_url, class: "rounded-lg max-h-[200px] object-contain" %>
+    <% else %>
+      <div class="flex gap-2 items-center text-gray-300">
+        <span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-10 stroke-gray-300">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+        </span>
+        <p>No image to display.</p>
+      </div>
+    <% end %>
+  </div>
+  <div class="flex flex-col grow justify-between">
+    <div class="mb-5 font-light text-sm"><%= product.description %></div>
+    <div class="flex justify-center items-center gap-5 mb-5">
+      <div>
+        <span class="<%= in_stock ? "text-green-600" : "text-red-600" %>">
+          <%= in_stock ? "#{product.amount} in stock" : "OUT OF STOCK" %>
+        </span>
+      </div>
+      <div class="text-lg font-bold">$<%= number_with_delimiter(number_with_precision product.price, precision: 2) %></div>
+    </div>
+    <%= form_with url: cart_items_path, method: :post do |f| %>
+      <div class="flex justify-around">
+        <%= hidden_field_tag :product_id, product.id %>
+
+        <%= number_field_tag :quantity, 1,
+              min: 1,
+              max: [99, product.amount.to_i].min,     # clamp to available stock (cap at 99)
+              class: "qty-input w-20 rounded border px-2 py-1 text-center disabled:opacity-50 disabled:cursor-not-allowed",
+              disabled: !in_stock %>
+
+        <%= f.submit "Add to cart",
+              class: "ml-2 rounded bg-yellow-300 transition duration-300 enabled:hover:-translate-y-1 enabled:hover:scale-110 enabled:hover:cursor-pointer hover:bg-yellow-200 px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed",
+              disabled: !in_stock %>
+      </div>
+    <% end %>
+    <!-- Old way with the stimulus controller
+      <div data-controller="quantity" data-quantity-max-value=<%= product.amount || 0 %> class="flex gap-5 justify-center mb-5 items-center">
+        <% if product.amount %>
+          <input data-quantity-target="input" data-action="input->quantity#update change->quantity#update" value=0 type="number" size="2" min="0" max=<% product.amount %> />
+        <% else %>
+          <div data-quantity-target="input"></div> <%# To prevent an error in stimulus %>
+        <% end %>
+        <button data-quantity-target="add" class="bg-yellow-300 transition duration-300 enabled:hover:-translate-y-1 enabled:hover:scale-110 enabled:hover:cursor-pointer hover:bg-yellow-200 px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+          Add to cart
+        </button>
+        <button data-quantity-target="buy" class="bg-yellow-300 transition duration-300 enabled:hover:-translate-y-1 enabled:hover:scale-110 enabled:hover:cursor-pointer hover:bg-yellow-200 px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+          Buy now
+        </button>
+      </div>
+    -->
+  </div>
+</div>
