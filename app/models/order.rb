@@ -1,10 +1,11 @@
 class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items, dependent: :destroy
-  before_validation :ensure_public_id, on: :create
+  before_validation :ensure_public_id
+  validates :public_id, presence: true, uniqueness: true
 
-  private
   def ensure_public_id
     self.public_id ||= SecureRandom.hex(8)
   end
+
 end

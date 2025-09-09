@@ -29,4 +29,8 @@
   <div class="mt-6 border-t pt-5 space-y-1 text-right">
     <div class="font-semibold">Total: $<%= (@order.total).round(2) %></div>
   </div>
+
+  <%= link_to raw("Back to order history &rarr;"), orders_path, 
+      class: "mt-3 inline-block rounded py-2 transition duration-200 hover:translate-x-1 hover:underline self-start" %>
+
 </div>

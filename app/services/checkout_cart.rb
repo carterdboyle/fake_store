@@ -1,34 +1,51 @@
 class CheckoutCart
+  class Error < StandardError; end
+
+  def self.call(user:)
+    new(user:, cart:).call
+  end
+
   def initialize(cart:, user:)
     @cart = cart
     @user = user
+    raise Error, "Cart does not belong to user" if @cart.user_id && @cart.user_id != @user.id
   end
 
   def call
-    ApplicationRecord.transaction do 
-      total = price_cart(@cart)
+    raise Error, "Cart is empty" if @cart.cart_items.empty?
 
-      order = Order.create!(
-        user: @user,
-        total: total,
-        placed_at: Time.current
-      )
+    ActiveRecord::Base.transaction do
+      order = @user.orders.create!
+      items = @cart.cart_items.includes(:product).sort_by(&:product_id)
 
-      @cart.cart_items.includes(:product).find_each do |ci|
-        unit = ci.product.price
-        OrderItem.create!(
-          order: order,
-          product: ci.product,
-          product_name: ci.product.title,
-          unit_price: unit,
-          quantity: ci.quantity,
-          total: unit * ci.quantity
+      items.each do |ci|
+        product = ci.product
+        quantity = ci.quantity
+
+        product.decrement_if_available!(quantity)
+
+        order.order_items.create!(
+          product_id: product.id,
+          product_name: product.title,
+          unit_price: product.price,
+          quantity: quantity,
+          total: product.price * quantity,
         )
-      end
+    end
 
-      @cart.update!(status: :converted, checked_out_at: Time.current)
-      @cart.cart_items.delete_all
-      order
+    # Recompute order total from items
+    order.update!(
+      total: order.order_items.sum(:total),
+      placed_at: Time.current
+    )
+
+    @cart.cart_items.delete_all
+    @cart.update!(status: :converted, checked_out_at: Time.current)
+
+    order
+
+    rescue Product::OutOfStockError => e
+      raise Error, e.message
     end
   end
 
