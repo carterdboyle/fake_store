@@ -39,20 +39,5 @@
               disabled: !in_stock %>
       </div>
     <% end %>
-    <!-- Old way with the stimulus controller
-      <div data-controller="quantity" data-quantity-max-value=<%= product.amount || 0 %> class="flex gap-5 justify-center mb-5 items-center">
-        <% if product.amount %>
-          <input data-quantity-target="input" data-action="input->quantity#update change->quantity#update" value=0 type="number" size="2" min="0" max=<% product.amount %> />
-        <% else %>
-          <div data-quantity-target="input"></div> <%# To prevent an error in stimulus %>
-        <% end %>
-        <button data-quantity-target="add" class="bg-yellow-300 transition duration-300 enabled:hover:-translate-y-1 enabled:hover:scale-110 enabled:hover:cursor-pointer hover:bg-yellow-200 px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-          Add to cart
-        </button>
-        <button data-quantity-target="buy" class="bg-yellow-300 transition duration-300 enabled:hover:-translate-y-1 enabled:hover:scale-110 enabled:hover:cursor-pointer hover:bg-yellow-200 px-3 py-1 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-          Buy now
-        </button>
-      </div>
-    -->
   </div>
 </div>

@@ -4,7 +4,6 @@
   <% else %>
     <% @products.each do |product| %>
       <% in_stock = product.amount.to_i > 0 %>
-      <%# This is where the card partial would go %>
       <%= render partial: 'card', locals: { product: product, in_stock: in_stock } %>
     <% end %>
   <% end %>

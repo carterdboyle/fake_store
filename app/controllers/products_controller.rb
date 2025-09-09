@@ -1,6 +1,12 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @pagy, @products = pagy(Product.order(created_at: :desc), items: 12)
+
+    respond_to do | format |
+      format.html
+      format.turbo_stream
+    end
+
   end
 
   def search

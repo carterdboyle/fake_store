@@ -19,6 +19,9 @@ gem "jbuilder"
 # Devise for authentication
 gem "devise"
 
+# Gem for lazy loading of cards
+gem "pagy", "~> 6.4"
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
