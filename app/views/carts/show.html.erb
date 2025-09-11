@@ -61,7 +61,7 @@
       <div class="mt-6 flex justify-between">
         <%= link_to "Continue shopping", products_path, class: "rounded border px-4 py-2 hover:bg-gray-50" %>
         <%# You can prompt sign in for checkout later %>
-        <%= link_to "Checkout (stub)", checkout_path, data: { turbo_method: :post },
+        <%= link_to "Checkout", checkout_path, data: { turbo_method: :post },
               class: "rounded bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700" %>
       </div>
     <% else %>
@@ -136,7 +136,6 @@
 
       <div class="mt-6 flex justify-between">
         <%= link_to "Continue shopping", products_path, class: "rounded border px-4 py-2 hover:bg-gray-50" %>
-        <%# You can prompt sign in for checkout later %>
         <%= link_to "Sign in to checkout", new_user_session_path,
               class: "rounded bg-emerald-600 px-4 py-2 text-white hover:bg-emerald-700" %>
       </div>

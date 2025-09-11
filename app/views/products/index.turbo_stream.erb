@@ -2,23 +2,6 @@
   <%= render partial: "card", collection: @products, as: :product %>
 <% end %>
 
-<%= turbo_stream.replace "infinite-pagination" do %>
-  <div id="infinite-pagination" class="mt-8 col-span-4 flex justify-center">
-    <% if @pagy.next %>
-      <div
-        data-controller="infinite-scroll"
-        data-infinite-scroll-next-url-value="<%= products_path(page: @pagy.next, format: :turbo_stream) %>"
-        data-infinite-scroll-root-selector-value="#scroll-root"
-        class="h-8 w-full flex items-center justify-center"
-      >
-        <div class="flex items-center gap-2 text-gray-500">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"></path>
-            </svg>
-            <span>Loading more...</span>
-        </div>
-      </div>
-    <% end %>
-  </div>
+<%= turbo_stream.replace "load_more" do %>
+  <%= render_load_more(@pagy) %>
 <% end %>

@@ -2,9 +2,14 @@ class ProductsController < ApplicationController
   def index
     @pagy, @products = pagy(Product.order(created_at: :desc), items: 8)
 
+    
     respond_to do | format |
       format.html
-      format.turbo_stream
+      format.turbo_stream do
+        sleep 4
+        #sleep 20 -- uncomment for testing
+        #render 'index'
+      end
     end
 
   end

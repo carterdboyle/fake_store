@@ -1,0 +1,9 @@
+<% pagy ||= nil %>
+
+<% if pagy&.next%>
+  <%= turbo_frame_tag "load_more", loading: :lazy, src: { page: pagy.next, format: :turbo_stream } do%>
+    <div class="h-8 w-full flex items-center justify-center">
+      <%= render 'shared/load_animation' %>
+    </div>
+  <% end %>
+<% end %>

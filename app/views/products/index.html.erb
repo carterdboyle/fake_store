@@ -1,34 +1,15 @@
 <div class="flex flex-col">
-  <div id="products-grid" class="content grid grid-cols-4 gap-4">
     <% if @products.empty? %>
+    <div class="content grid grid-cols-4 gap-4 min-h-[60vh]">
       <span class="col-span-2">No products found. Try another search or add products to database.</span>
+    </div>
     <% else %>
-      <%= render partial: 'card', collection: @products, as: :product %>
+      <%= turbo_frame_tag "products-grid", target: "_top", class: "content grid grid-cols-4 gap-4 min-h-[60vh]" do %>
+        <%= render partial: 'card', collection: @products, as: :product %>
+      <% end %>
     <% end %>
-  </div>
 
-  <div id="infinite-pagination" class="mt-8 col-span-4 flex justify-center">
-    <% if @pagy.next %>
-      <!-- Sentinel watched by IntersectionObserver -->
-      <div
-        data-controller="infinite-scroll"
-        data-infinite-scroll-next-url-value="<%= products_path(page: @pagy.next, format: :turbo_stream) %>"
-        data-infinite-scroll-root-selector-value="#scroll-root"
-        class="h-8 w-full flex items-center justify-center"
-      >
-        <div class="flex items-center gap-2 text-gray-500">
-            <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"></path>
-            </svg>
-            <span>Loading more...</span>
-        </div>
-      </div>
-    <% else %>
-      <p class="text-sm text-gray-500">No more products</p>
-    <% end %>
-    <noscript class="block text-center mt-4">
-      <%= pagy_nav(@pagy).html_safe %>
-    </noscript>
+  <div class="mt-8 col-span-4 flex justify-center">
+    <%= render_load_more(@pagy)%>
   </div>
 </div>
