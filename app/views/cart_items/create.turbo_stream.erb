@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "cart-count" do %>
+    <span id="cart-count" class="absolute -right-3 -top-2 rounded-full bg-blue-600 px-2 text-xs font-semibold text-white">
+        <%= cart_count %>
+    </span>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <div id="flash">
+    <%= render "shared/flash" %>
+  </div>
+<% end %>

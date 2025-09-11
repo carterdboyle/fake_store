@@ -14,7 +14,16 @@ class CartItemsController < ApplicationController
       guest_cart[key] = [guest_cart[key].to_i + qty, max].min
     end
 
-    redirect_back fallback_location: cart_path, notice: "Added to cart."
+    respond_to do | format |
+      format.turbo_stream do
+        # Show the flash immediately without a full-page visit
+        flash.now[:notice] = "Added to cart."
+        # Rails will render app/views/cart_items/create.turbo_stream.erb
+      end
+      format.html do
+        redirect_back fallback_location: cart_path, notice: "Added to cart."
+      end
+    end
   end
 
 
