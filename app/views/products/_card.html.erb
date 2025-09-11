@@ -1,3 +1,4 @@
+<% in_stock = product.amount.to_i > 0 %>
 <div class="border rounded p-5 flex flex-col gap-5 shadow-lg">
   <div class="uppercase tracking-widest text-center"><%= title_trimmer product.title %></div>
   <div class="top-box flex items-center justify-center h-[200px] w-auto border-b pb-5">

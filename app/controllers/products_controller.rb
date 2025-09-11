@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @pagy, @products = pagy(Product.order(created_at: :desc), items: 12)
+    @pagy, @products = pagy(Product.order(created_at: :desc), items: 8)
 
     respond_to do | format |
       format.html

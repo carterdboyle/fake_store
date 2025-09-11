@@ -1,15 +1,10 @@
-<div class="flex flex-col">
-  <div id="products-grid" class="content grid grid-cols-4 gap-4">
-    <% if @products.empty? %>
-      <span class="col-span-2">No products found. Try another search or add products to database.</span>
-    <% else %>
-      <%= render partial: 'card', collection: @products, as: :product %>
-    <% end %>
-  </div>
+<%= turbo_stream.append "products-grid" do %>
+  <%= render partial: "card", collection: @products, as: :product %>
+<% end %>
 
+<%= turbo_stream.replace "infinite-pagination" do %>
   <div id="infinite-pagination" class="mt-8 col-span-4 flex justify-center">
     <% if @pagy.next %>
-      <!-- Sentinel watched by IntersectionObserver -->
       <div
         data-controller="infinite-scroll"
         data-infinite-scroll-next-url-value="<%= products_path(page: @pagy.next, format: :turbo_stream) %>"
@@ -24,11 +19,6 @@
             <span>Loading more...</span>
         </div>
       </div>
-    <% else %>
-      <p class="text-sm text-gray-500">No more products</p>
     <% end %>
-    <noscript class="block text-center mt-4">
-      <%= pagy_nav(@pagy).html_safe %>
-    </noscript>
   </div>
-</div>
+<% end %>
