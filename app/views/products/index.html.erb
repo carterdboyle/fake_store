@@ -4,7 +4,7 @@
       <span class="col-span-2">No products found. Try another search or add products to database.</span>
     </div>
     <% else %>
-      <%= turbo_frame_tag "products-grid", target: "_top", class: "content grid grid-cols-4 gap-4 min-h-[60vh]" do %>
+      <%= turbo_frame_tag "products-grid", class: "content grid grid-cols-4 gap-4 min-h-[60vh]" do %>
         <%= render partial: 'card', collection: @products, as: :product %>
       <% end %>
     <% end %>
