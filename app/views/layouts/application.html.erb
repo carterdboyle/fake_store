@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full">
+<html class="h-full scroll-smooth">
   <head>
     <title><%= content_for(:title) || "Fake Store" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -32,6 +32,7 @@
       <%= yield %>
     </main>
 
+    <%= render "shared/back_to_top" %>
     <%= render "layouts/footer" %>
   </body>
 </html>

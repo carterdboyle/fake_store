@@ -5,7 +5,6 @@ class ProductsController < ApplicationController
     respond_to do | format |
       format.html
       format.turbo_stream do
-        sleep 2
         #sleep 20 -- uncomment for testing
         #render 'index'
       end
