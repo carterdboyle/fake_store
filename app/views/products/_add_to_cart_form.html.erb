@@ -1,4 +1,4 @@
-<%= turbo_frame_tag "add_to_cart_form", dom_id(product, :add) do %>
+<%= turbo_frame_tag dom_id(product, :add) do %>
   <%= form_with url: cart_items_path, method: :post do |f| %>
     <div class="flex justify-around mb-2">
       <%= hidden_field_tag :product_id, product.id %>

@@ -7,4 +7,14 @@ class CartsController < ApplicationController
       @guest_products = Product.where(id: ids).index_by(&:id)
     end
   end
+
+  def destroy
+    if user_signed_in?
+      @current_cart.destroy
+    else
+      guest_cart.clear
+    end
+
+    redirect_to cart_path, notice: "Cart deleted!"
+  end
 end
