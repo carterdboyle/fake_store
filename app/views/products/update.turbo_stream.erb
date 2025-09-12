@@ -1,0 +1,13 @@
+<%= turbo_stream.replace dom_id(@product, :stock) do %>
+  <%= render partial: "products/stock", locals: { product: @product } %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@product, :add) do %>
+  <%= render partial: "products/add_to_cart_form", locals: { product: @product } %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <div id="flash">
+    <%= render "shared/flash" %>
+  </div>
+<% end %>

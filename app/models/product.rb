@@ -14,4 +14,8 @@ class Product < ApplicationRecord
   def decrement_if_available!(qty)
     decrement_if_available(qty) or raise OutOfStockError, "Not enough stock!"
   end
+
+  def in_stock
+    self.amount.to_i > 0
+  end
 end

@@ -150,3 +150,7 @@ products.each do |attrs|
 end
 
 puts "Seeded #{products.size} products"
+
+User.create(email: "admin@fake-store.com", name: "admin", password: "pass1234", is_admin: true)
+
+puts "Seeded admin user"
