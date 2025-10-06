@@ -2,7 +2,23 @@
   <div class="uppercase tracking-widest text-center"><%= title_trimmer product.title %></div>
   <div class="top-box flex items-center justify-center h-[200px] w-auto border-b pb-5">
     <% if product.image_url.present? %>
-      <%= image_tag product.image_url, class: "rounded-lg max-h-[200px] object-contain" %>
+      <figure
+        data-controller="blur-up"
+        class="flex overflow-hidden rounded-xl bg-gray-200 aspect-squre"
+      >
+        <div
+          data-blur-up-target="overlay"
+          class="animate-pulse bg-gray-200 transition-opacity duration-300"
+          aria-hidden="true"
+        ></div>
+
+        <%= image_tag product.image_url,
+              alt: product.title,
+              loading: "lazy", decoding: "async",
+              width: 200, height: 200,
+              class: "object-contain transition duration-500 ease-out opacity-0 blur-lg",
+              data: { action: "load->blur-up#reveal" } %>
+      </figure>
     <% else %>
       <div class="flex gap-2 items-center text-gray-300">
         <span>
